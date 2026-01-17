@@ -1,0 +1,16 @@
+﻿namespace ConsoleDocumentSystem.Enums
+{
+    [Flags]
+    public enum PlushTextStyle
+    {
+        None = 0,
+        Bold = 1 << 0,
+        Dim = 1 << 1,
+        Italic = 1 << 2,
+        Underline = 1 << 3,
+        Blink = 1 << 4,
+        Strikethrough = 1 << 5,
+        Inverse = 1 << 6,
+        // You can add more styles later!
+    }
+}

@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>ConsoleDocument.PowerShell</AssemblyName>
+    <RootNamespace>ConsoleDocument.PowerShell</RootNamespace>
+    
+    <!-- PowerShell module settings -->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- PowerShell SDK - use PrivateAssets to avoid shipping with module -->
+    <PackageReference Include="PowerShellStandard.Library" Version="5.1.1" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Reference the main ConsoleDocument library -->
+    <ProjectReference Include="..\ConsoleDocument\ConsoleDocumentSystem.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Include module manifest and format files in output -->
+    <None Update="ConsoleDocument.PowerShell.psd1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ConsoleDocument.PowerShell.Format.ps1xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

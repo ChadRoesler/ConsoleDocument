@@ -1,0 +1,216 @@
+╭─────────────────────────────────────────────────────────────────────────────────────────────╮
+│                              Chad Console Graphics Design Doc                               │
+╰─────────────────────────────────────────────────────────────────────────────────────────────╯
+[+] Version History
+[=+=] 1.0
+[==+==] Initial creation
+[=+=] 1.3
+[==+==] Expanding Methodology, and process
+╭─────────────────────────────────────────────────────────────────────────────────────────────╮
+╰─────────────────────────────────────────────────────────────────────────────────────────────╯
+[+] General Design Rules
+[=+=] The glyph [+] ALWAYS denotes a start or root or title
+[=+=] The glyph below is used to seperate between tables/outlines It
+      It can extend for as long as needed
+[==+==] ╭─╮ 
+        ╰─╯
+        ╭──────────────────────────────╮
+        ╰──────────────────────────────╯
+[==+==] The glyph should be the first thing printed and the last thing printed
+[==+==] The glyph may contain characters ONLY for the Major breaks First/Last/Specified
+[===+===] ╭────────────────────────────────╮
+          │            TextHere            │
+          ╰────────────────────────────────╯
+[===+===] Text MUST be centered, in case of being unable to exactly center, due to odd number
+          of character add the excess space to the right.
+[=+=] Width of document should should:
+[==+==] If printing to a console, be dyanmic
+[==+==] If printing to a file, use the specified width alotment
+[=+=] Tables/Graphs use a mix of the following characters to create outlines
+[==+==] ╔╦╗╠╬╣╚╩╝═║
+╭─────────────────────────────────────────────────────────────────────────────────────────────╮
+╰─────────────────────────────────────────────────────────────────────────────────────────────╯
+[+] Outline Design Rules
+[=+=] Each sub area will be like the starting glyph ONLY using "=" as equal amount spacers 
+      on each side
+[==+==] Eample using standard outline to chad format:
+        TitleHere
+        I. 1 Top
+        II. 2 Top
+          A. 1 SubL1
+          B. 2 SubL1
+            1. 1 SubL2
+            2. 2 SubL2
+              a. 1 SubL3
+              b. 2 SubL3
+        III. 3Top
+        Gives the following
+        [+] TitleHere
+        [=+=] 1 Top
+        [=+=] 2 Top
+        [==+==] 1 SubL1
+        [==+==] 2 SubL1
+        [===+===] 1 SubL2
+        [===+===] 2 SubL2
+        [====+====] 1 SubL3
+        [====+====] 2 SubL3
+        [=+=] 3 Top
+[=+=] As seen above overflow should start exactly 1 space after the ending glyph characer
+╭─────────────────────────────────────────────────────────────────────────────────────────────╮
+╰─────────────────────────────────────────────────────────────────────────────────────────────╯
+[+] Table Design rules
+[=+=] Columns are ALWAYS optional
+[=+=] Columns should group when able to, in Column order (this is a strict rule)
+[==+==] Think of it like a GrandParent => Parent => Child hierarchy
+[=+=] BarGraph Datapoint Column is self explanitory ammount, count, number, etc..
+[=+=] There should ALWAYS be 1 space before a Word/Object and ALWAYS two spaces after
+[=+=] Preformed Glyphs for table titles are [+]
+[==+==] These should not appear anywhere else, UNLESS a row/column value contains it
+╭─────────────────────────────────────────────────────────────────────────────────────────────╮
+╰─────────────────────────────────────────────────────────────────────────────────────────────╯
+[+] BarGraph Design rules
+[=+=] Columns are ALWAYS optional
+[=+=] Graphs ALWAYS scale out on the X axis
+[=+=] There should ALWAYS be 1 space before a Word/Object and ALWAYS two spaces after
+[=+=] When alternating colors swap between ▒ and █
+[==+==] BarGraphs ALWAYS start on █
+[=+=] BarGraph bar length and subseqent parenthesied count MUST respeect the following
+[==+==] Document Size
+[==+==] Cell Area
+[==+==] Spacing Rules
+[=+=] BarGraph bar lengths DO NOT need to be a 1:1 ratio when determining length
+[==+==] Best Effort Must be made in steps of 25% ratio to fit
+╭─────────────────────────────────────────────────────────────────────────────────────────────╮
+╰─────────────────────────────────────────────────────────────────────────────────────────────╯
+[+] Usages
+[=+=] BaseNameSpace
+[=+==] ConsoleDocument
+[=+=] Base Parameters for Instantiating the object ConsoleDocument
+[===+===] Width (int)
+[===+===] StandardColor (Color)
+[===+===] TitleTextColor (Color)
+[====+====] This parameter applys for ALL graph, table, outline Titles
+[===+===] OutlineSubColor (ITuple)
+[===+===] RootGylphColor (Color)
+[===+===] SeperatorGlyphColor (Color)
+[===+===] BarGraphColor (Color)
+[===+===] AlternateBarGraphColors (bool)
+[===+===] StartingSeperator (string)
+[===+===] EndingSeperator (string)
+[=+=] Methods
+[==+==] Calling any of these does will output an object AND MUST add it to an internal document object that contains the ordered (based on create order) objects
+[==+==] CreateTable (DataTable dataTable, bool IncludeColumnNames)
+[===+===] Checks for DataTableName, as that is the Title of the Table
+[===+===] Only Requires ColumnNames if IncludeColumnNames is true
+[==+==] CreateTable (IEnumerable<Object> object, string title, int Depth, bool IncludeColumnNames)
+[===+===] Object is any object, it should be able to take ANY object type
+[===+===] Default for Depth 0
+[===+===] Property Names are the ColumnNames
+[===+===] Depth Determines the how far in to the object should we go for data (essentially flattening the object)
+[==+==] CreateBarGraph (Object object, string title, string yAxisProperty, string xAxisProperty, bool IncludeColumnNames)
+[===+===] yAxisProperty MUST be a string type property
+[===+===] xAxisProperty MUST be an int type property
+[===+===] Object is any object, it should be able to take ANY object type
+[==+==] CreateOutline (IEnumerable<ITuple> outline, string title)
+[===+===] Outline should be in a format like (string, List<(string, List<(string, List<(string)>)>)>) or something like that (I need some sort of sugestion)
+[===+===] The "=" inside the glyphs should be dyanmicly determined by the depth, no hard coding the subLevel glyphs
+[==+==] CreateSeperator(string title)
+[===+===] Creates a seperator glyph with text if passed
+[==+==] RenderDocument()
+[===+===] returns the document as a string.
+╭─────────────────────────────────────────────────────────────────────────────────────────────╮
+│                                          Examples                                           │
+╰─────────────────────────────────────────────────────────────────────────────────────────────╯
+╔═════════════════════════════════════════════════╗
+║ [+] SingleRowAndColumnTable                     ║
+╠═══════════════════════╦═════════════════════════╣
+║ ColumnName            ║ ColumnName              ║
+╠═══════════════════════╬═════════════════════════╣
+║ OneMore               ║ YeahOneMore             ║
+╠═══════════════════════╬═════════════════════════╣
+║ OneMore               ║ YeahOneMore             ║
+╚═══════════════════════╩═════════════════════════╝
+╭─────────────────────────────────────────────────────────────────────────────────────────────╮
+╰─────────────────────────────────────────────────────────────────────────────────────────────╯
+╔═════════════════════════════════════════════════╗
+║ [+] GroupedRowAndColumnTableExample             ║
+╠═══════════════════════╦═════════════════════════╣
+║ ColumName             ║ ColumnName              ║
+╠═══════════════════════╬═════════════════════════╣
+║ SingleCol             ║ DataLine1B              ║
+║                       ╠═════════════════════════╣
+║                       ║ YeahOneMore             ║
+╠═══════════════════════╬═════════════════════════╣
+║ SingleCol2            ║ DataLine1B              ║
+║                       ╠═════════════════════════╣
+║                       ║ YeahOneMore             ║
+╚═══════════════════════╩═════════════════════════╝
+╭─────────────────────────────────────────────────────────────────────────────────────────────╮
+╰─────────────────────────────────────────────────────────────────────────────────────────────╯
+╔════════════════════════════════════════════════════╗
+║ [+] GroupedRowAndMultiColumnTableExample           ║
+╠═════════════╦═════════════════════════╦════════════╣
+║ ColumnName  ║ ColumnName              ║ ColumName  ║
+╠═════════════╬═════════════════════════╬════════════╣
+║ SingleCol   ║ DataLine1B              ║ Data       ║
+║             ╠═════════════════════════╬════════════╣
+║             ║ YeahOneMore             ║ Data       ║
+╠═════════════╬═════════════════════════╬════════════╣
+║ SingleCol2  ║ DataLine1B              ║ Data       ║
+║             ╠═════════════════════════╬════════════╣
+║             ║ YeahOneMore             ║ Data       ║
+╚═════════════╩═════════════════════════╩════════════╝
+╭─────────────────────────────────────────────────────────────────────────────────────────────╮
+╰─────────────────────────────────────────────────────────────────────────────────────────────╯
+╔════════════════════════════════════════════════════╗
+║ [+] MultiGroupedRowAndColumnTableExample           ║
+╠═════════════╦═════════════════════════╦════════════╣
+║ ColumnName  ║ ColumnName              ║ ColumName  ║
+╠═════════════╬═════════════════════════╬════════════╣
+║ SingleCol   ║ DataLine1B              ║ Data       ║
+║             ║                         ╠════════════╣
+║             ║                         ║ Data       ║
+║             ╠═════════════════════════╬════════════╣
+║             ║ YeahOneMore             ║ Data       ║
+║             ║                         ╠════════════╣
+║             ║                         ║ Data       ║
+╠═════════════╬═════════════════════════╬════════════╣
+║ SingleCol2  ║ DataLine1B              ║ Data       ║
+║             ║                         ╠════════════╣
+║             ║                         ║ Data       ║
+║             ╠═════════════════════════╬════════════╣
+║             ║ YeahOneMore             ║ Data       ║
+║             ║                         ╠════════════╣
+║             ║                         ║ Data       ║
+╚═════════════╩═════════════════════════╩════════════╝
+╭─────────────────────────────────────────────────────────────────────────────────────────────╮
+╰─────────────────────────────────────────────────────────────────────────────────────────────╯
+╔══════════════════════════════════════════════════════╗
+║ [+] BarGraph                                         ║
+╠═════════════╦════════════════════════════════════════╣
+║ ColumnName  ║ DataPoint                              ║
+╠═════════════╬════════════════════════════════════════╣
+║ 0           ║ ████████ (Count)                       ║
+║ 1-5         ║ █████████████ (Count)                  ║
+║ 6-10        ║ ██████████ (Count)                     ║
+║ 11-20       ║ █████████████████████████████ (Count)  ║
+║ 20-40       ║ ██████ (Count)                         ║
+║ 41+         ║ █ (Count)                              ║
+╚═════════════╩════════════════════════════════════════╝
+╭─────────────────────────────────────────────────────────────────────────────────────────────╮
+╰─────────────────────────────────────────────────────────────────────────────────────────────╯
+╔══════════════════════════════════════════════════════╗
+║ [+] BarGraphAlternatingColors                        ║
+╠═════════════╦════════════════════════════════════════╣
+║ ColumnName  ║ DataPoint                              ║
+╠═════════════╬════════════════════════════════════════╣
+║ 0           ║ ████████ (Count)                       ║
+║ 1-5         ║ ▒▒▒▒▒▒▒▒▒▒▒▒▒ (Count)                  ║
+║ 6-10        ║ ██████████ (Count)                     ║
+║ 11-20       ║ ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ (Count)  ║
+║ 20-40       ║ ██████ (Count)                         ║
+║ 41+         ║ ▒ (Count)                              ║
+╚═════════════╩════════════════════════════════════════╝
+╭─────────────────────────────────────────────────────────────────────────────────────────────╮
+│                                             End                                             │
+╰─────────────────────────────────────────────────────────────────────────────────────────────╯

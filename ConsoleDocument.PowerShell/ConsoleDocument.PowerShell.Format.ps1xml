@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+  <ViewDefinitions>
+    
+    <!-- ConsoleDocument view -->
+    <View>
+      <Name>ConsoleDocumentSystem.ConsoleDocument</Name>
+      <ViewSelectedBy>
+        <TypeName>ConsoleDocumentSystem.ConsoleDocument</TypeName>
+      </ViewSelectedBy>
+      <ListEntries>
+        <ListEntry>
+          <ListItems>
+            <ListItem>
+              <Label>Width</Label>
+              <PropertyName>Width</PropertyName>
+            </ListItem>
+            <ListItem>
+              <Label>VT Enabled</Label>
+              <PropertyName>VTEnabled</PropertyName>
+            </ListItem>
+            <ListItem>
+              <Label>Block Count</Label>
+              <ScriptBlock>$_.Blocks.Count</ScriptBlock>
+            </ListItem>
+            <ListItem>
+              <Label>Text Color</Label>
+              <PropertyName>TextColor</PropertyName>
+            </ListItem>
+            <ListItem>
+              <Label>Border Color</Label>
+              <PropertyName>BorderColor</PropertyName>
+            </ListItem>
+          </ListItems>
+        </ListEntry>
+      </ListEntries>
+    </View>
+
+    <!-- ConsoleTable view -->
+    <View>
+      <Name>ConsoleDocumentSystem.Models.ConsoleTable</Name>
+      <ViewSelectedBy>
+        <TypeName>ConsoleDocumentSystem.Models.ConsoleTable</TypeName>
+      </ViewSelectedBy>
+      <ListEntries>
+        <ListEntry>
+          <ListItems>
+            <ListItem>
+              <Label>Type</Label>
+              <ScriptBlock>"Table"</ScriptBlock>
+            </ListItem>
+            <ListItem>
+              <Label>Columns</Label>
+              <ScriptBlock>$_.Table.Columns -join ", "</ScriptBlock>
+            </ListItem>
+          </ListItems>
+        </ListEntry>
+      </ListEntries>
+    </View>
+
+    <!-- ConsoleProgressBar view -->
+    <View>
+      <Name>ConsoleDocumentSystem.Models.ConsoleProgressBar</Name>
+      <ViewSelectedBy>
+        <TypeName>ConsoleDocumentSystem.Models.ConsoleProgressBar</TypeName>
+      </ViewSelectedBy>
+      <ListEntries>
+        <ListEntry>
+          <ListItems>
+            <ListItem>
+              <Label>Type</Label>
+              <ScriptBlock>"ProgressBar"</ScriptBlock>
+            </ListItem>
+            <ListItem>
+              <Label>Bar Color</Label>
+              <PropertyName>BarColor</PropertyName>
+            </ListItem>
+            <ListItem>
+              <Label>Empty Color</Label>
+              <PropertyName>EmptyColor</PropertyName>
+            </ListItem>
+          </ListItems>
+        </ListEntry>
+      </ListEntries>
+    </View>
+
+  </ViewDefinitions>
+</Configuration>
